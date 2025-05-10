@@ -1,0 +1,398 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Watch2Go Most Popular & Trending Movie Download Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    }
+    .navbar {
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+    .navbar.scrolled {
+      transform: translateY(-10px);
+    }
+    .animate-scale:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    .animate-pulse {
+      animation: pulse 1.5s infinite;
+    }
+    .animate-glow {
+      transition: all 0.3s ease;
+    }
+    .animate-glow:hover {
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+    .icon-hover {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .icon-hover:hover {
+      transform: scale(1.2);
+      color: #ff4d4d;
+    }
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .poster-overlay:hover {
+      opacity: 1;
+    }
+    .poster-overlay .play-button {
+      color: #ffffff;
+      font-size: 2rem;
+      background: radial-gradient(circle, rgba(255, 77, 77, 0.8), transparent);
+      padding: 15px;
+      border-radius: 50%;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .poster-overlay .play-button:hover {
+      transform: scale(1.2);
+      background: radial-gradient(circle, rgba(255, 77, 77, 1), transparent);
+    }
+    .poster-overlay span {
+      color: #ffffff;
+      font-family: 'Roboto Slab', serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease 0.2s;
+    }
+    .poster-overlay:hover span {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-title {
+      background: linear-gradient(to right, #1a9fff, #fca311);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .trending-title {
+      background: linear-gradient(to right, #fca311, #f7c6d0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .tooltip {
+      position: relative;
+    }
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff4d4d;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+    .search-container {
+      display: none;
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+    }
+    .search-container.active {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: 2px solid #ff4d4d;
+      color: white;
+      padding: 10px;
+      border-radius: 25px;
+      outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .search-input:focus {
+      border-color: #1a9fff;
+    }
+    .close-search {
+      color: #ff4d4d;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .close-search:hover {
+      transform: rotate(90deg);
+      color: #ffffff;
+    }
+    .movie-card {
+      display: block;
+    }
+    .movie-card.hidden {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .grid-cols-2 {
+        grid-template-columns: 1fr;
+      }
+      .poster-overlay span {
+        font-size: 0.9rem;
+      }
+      .search-input {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen">
+  <!-- Navbar -->
+  <nav class="navbar flex items-center justify-between px-4 py-3 border-b border-red-600 sticky top-0 z-20">
+    <div class="nav-content flex items-center justify-between w-full">
+      <button aria-label="Menu" class="text-white text-2xl icon-hover tooltip" data-tooltip="Open Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="flex items-center space-x-1">
+        <span class="text-[#1a9fff] font-bold text-2xl select-none animate-glow">Watch2</span>
+        <span class="text-[#7ed957] font-bold text-2xl select-none animate-glow">Go</span>
+      </div>
+      <button aria-label="Search" class="text-white text-2xl icon-hover tooltip search-toggle" data-tooltip="Search Movies">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search movies..." />
+      <i class="fas fa-times close-search"></i>
+    </div>
+  </nav>
+
+  <main class="px-3 py-4 max-w-5xl mx-auto">
+    <!-- Most Popular Section -->
+    <section>
+      <h2 class="flex items-center space-x-2 mb-3 select-none">
+        <i class="fas fa-fire text-2xl text-red-600 animate-pulse"></i>
+        <span class="section-title text-xl font-semibold">Most Popular</span>
+      </h2>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Movie 1 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Shubh Mangal Saavdhan">
+          <a href="https://www.erosnow.com/movie/shubh-mangal-saavdhan" target="_blank">
+            <img alt="Shubh Mangal Saavdhan poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/b29c4af2-dc8a-406f-9c74-0b3776306154.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Shubh Mangal Saavdhan</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/shubh-mangal-saavdhan" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Shubh Mangal Saavdhan <span class="text-gray-400 font-normal">| 2017</span></p>
+        </div>
+        <!-- Movie 2 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Love Aaj Kal">
+          <a href="https://www.erosnow.com/movie/love-aaj-kal" target="_blank">
+            <img alt="Love Aaj Kal poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2090dbee-5e00-43d2-e426-8f601ec78daf.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Love Aaj Kal</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/love-aaj-kal" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Love Aaj Kal <span class="text-gray-400 font-normal">| 2009</span></p>
+        </div>
+        <!-- Movie 3 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Goliyon Ki Raasleela Ram-Leela">
+          <a href="https://www.erosnow.com/movie/goliyon-ki-raasleela-ram-leela" target="_blank">
+            <img alt="Goliyon Ki Raasleela Ram-Leela poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e38f62c5-f8a3-47ee-c0cc-5ec9f17889d6.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Goliyon Ki Raasleela</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/goliyon-ki-raasleela-ram-leela" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Goliyon Ki Raasleela <span class="text-gray-400 font-normal">| 2013</span></p>
+        </div>
+        <!-- Movie 4 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Cocktail">
+          <a href="https://www.erosnow.com/movie/cocktail" target="_blank">
+            <img alt="Cocktail poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/835f4850-d830-4100-7fcb-5bcdb67d3cd1.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Cocktail</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/cocktail" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Cocktail <span class="text-gray-400 font-normal">| 2012</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending Now Section -->
+    <section class="mt-6">
+      <h2 class="flex items-center space-x-2 mb-3 select-none">
+        <i class="fas fa-eye text-2xl text-yellow-500 animate-pulse"></i>
+        <span class="trending-title text-xl font-semibold">Trending Now</span>
+      </h2>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Movie 1 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Shubh Mangal Saavdhan">
+          <a href="https://www.erosnow.com/movie/shubh-mangal-saavdhan" target="_blank">
+            <img alt="Shubh Mangal Saavdhan poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/b29c4af2-dc8a-406f-9c74-0b3776306154.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Shubh Mangal Saavdhan</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/shubh-mangal-saavdhan" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Shubh Mangal Saavdhan <span class="text-gray-400 font-normal">| 2017</span></p>
+        </div>
+        <!-- Movie 2 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Love Aaj Kal">
+          <a href="https://www.erosnow.com/movie/love-aaj-kal" target="_blank">
+            <img alt="Love Aaj Kal poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2090dbee-5e00-43d2-e426-8f601ec78daf.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Love Aaj Kal</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/love-aaj-kal" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Love Aaj Kal <span class="text-gray-400 font-normal">| 2009</span></p>
+        </div>
+        <!-- Movie 3 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Goliyon Ki Raasleela Ram-Leela">
+          <a href="https://www.erosnow.com/movie/goliyon-ki-raasleela-ram-leela" target="_blank">
+            <img alt="Goliyon Ki Raasleela Ram-Leela poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e38f62c5-f8a3-47ee-c0cc-5ec9f17889d6.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Goliyon Ki Raasleela</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/goliyon-ki-raasleela-ram-leela" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Goliyon Ki Raasleela <span class="text-gray-400 font-normal">| 2013</span></p>
+        </div>
+        <!-- Movie 4 -->
+        <div class="movie-card relative bg-black animate-glow" data-title="Cocktail">
+          <a href="https://www.erosnow.com/movie/cocktail" target="_blank">
+            <img alt="Cocktail poster" class="w-full rounded-lg" height="350" loading="lazy" src="https://storage.googleapis.com/a1aa/image/835f4850-d830-4100-7fcb-5bcdb67d3cd1.jpg" width="300" />
+            <div class="poster-overlay">
+              <i class="fas fa-play play-button"></i>
+              <span>Cocktail</span>
+            </div>
+          </a>
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">HD</div>
+          <a href="https://www.erosnow.com/download/cocktail" target="_blank" class="absolute top-2 right-2 text-red-600 text-lg cursor-pointer icon-hover tooltip" data-tooltip="Download Now">
+            <i class="fas fa-download"></i>
+          </a>
+          <p class="text-white text-xs font-semibold mt-1">Cocktail <span class="text-gray-400 font-normal">| 2012</span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Search functionality
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchContainer = document.querySelector('.search-container');
+    const navContent = document.querySelector('.nav-content');
+    const closeSearch = document.querySelector('.close-search');
+    const searchInput = document.querySelector('.search-input');
+    const movieCards = document.querySelectorAll('.movie-card');
+
+    searchToggle.addEventListener('click', () => {
+      navContent.style.display = 'none';
+      searchContainer.classList.add('active');
+      searchInput.focus();
+    });
+
+    closeSearch.addEventListener('click', () => {
+      navContent.style.display = 'flex';
+      searchContainer.classList.remove('active');
+      searchInput.value = '';
+      movieCards.forEach(card => card.classList.remove('hidden'));
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      movieCards.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    // Lazy load poster images with IntersectionObserver
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src || img.src;
+          observer.unobserve(img);
+        }
+      });
+    });
+    images.forEach(img => observer.observe(img));
+  </script>
+</body>
+</html>
