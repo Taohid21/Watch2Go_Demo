@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Watch Love Aaj Kal (2009) - A romantic drama directed by Imtiaz Ali." />
+    <meta property="og:title" content="Love Aaj Kal - Watch Now" />
+    <meta property="og:description" content="Stream or download Love Aaj Kal, a romantic drama starring Saif Ali Khan and Deepika Padukone." />
+    <meta property="og:image" content="https://storage.googleapis.com/a1aa/image/629e5e75-7c7c-4708-3408-7482e8230261.jpg" />
+    <meta property="og:url" content="https://example.com/love-aaj-kal" />
+    <title>Watch2Go - Love Aaj Kal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+      .font-special {
+        font-family: 'Special Elite', cursive;
+      }
+      .animate-glow {
+        animation: glow 1.5s ease-in-out infinite alternate;
+      }
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #2a8de0, 0 0 20px #2a8de0;
+        }
+        to {
+          text-shadow: 0 0 20px #8fcf4f, 0 0 30px #8fcf4f;
+        }
+      }
+      .light-mode {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .light-mode .bg-[#0c161f] {
+        background-color: #ffffff;
+      }
+      .star-rating .fa-star {
+        cursor: pointer;
+        color: #ccc;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .star-rating .fa-star:hover {
+        transform: scale(1.2);
+      }
+      .star-rating .fa-star.checked {
+        color: #f4d03f;
+        animation: starPulse 0.3s ease-in-out;
+      }
+      @keyframes starPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .progress-bar {
+        width: 0;
+        height: 5px;
+        background: #3ea9ff;
+        transition: width 0.1s linear;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-[#0c161f] text-white font-sans transition-all duration-300">
+    <div class="max-w-md mx-auto">
+      <!-- Header -->
+      <header class="flex items-center justify-between bg-[#0c161f] p-4 sticky top-0 z-10">
+        <div class="flex items-center">
+          <button aria-label="Back" class="text-white text-2xl mr-3" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <h1 class="flex items-center space-x-1 font-special text-2xl">
+            <span class="text-[#2a8de0] font-bold animate-glow">eros</span>
+            <span class="text-[#8fcf4f] font-light animate-glow">now</span>
+          </h1>
+        </div>
+        <button id="theme-toggle" aria-label="Toggle Theme" class="text-white text-xl">
+          <i class="fas fa-moon"></i>
+        </button>
+      </header>
+
+      <!-- Video Banner -->
+      <div class="aspect-w-16 aspect-h-9">
+        <video
+          id="player"
+          playsinline
+          controls
+          poster="https://storage.googleapis.com/a1aa/image/1683891d-a0ae-4299-644b-b97c351ae1dd.jpg"
+        >
+          <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <!-- Title and Info -->
+      <section class="px-4 pt-4 fade-in">
+        <h2 class="text-3xl font-bold mb-2 font-special text-[#2a8de0] animate-glow">
+          Love Aaj Kal
+        </h2>
+        <p class voteNum="text-white text-sm font-semibold mb-3">
+          2009 <span class="mx-2">|</span> 123 min
+          <span class="inline-block ml-2 px-2 py-0.5 text-xs font-semibold bg-gray-700 rounded">
+            HD
+          </span>
+          <span class="inline-block ml-1 px-2 py-0.5 text-xs font-semibold bg-gray-700 rounded">
+            13+
+          </span>
+        </p>
+      </section>
+
+      <!-- Star Rating -->
+      <section class="px-4 mb-4 fade-in" id="rating-section">
+        <div class="star-rating flex space-x-1">
+          <i class="fas fa-star" data-rating="1"></i>
+          <i class="fas fa-star" data-rating="2"></i>
+          <i class="fas fa-star" data-rating="3"></i>
+          <i class="fas fa-star" data-rating="4"></i>
+          <i class="fas fa-star" data-rating="5"></i>
+        </div>
+        <button
+          id="confirm-rating"
+          class="mt-2 px-4 py-1 bg-[#3ea9ff] text-black rounded hidden"
+          onclick="confirmRating()"
+        >
+          OK
+        </button>
+      </section>
+
+      <!-- Buttons -->
+      <section class="px-4 space-y-3 mb-6 fade-in">
+        <div class="progress-bar" id="download-progress"></div>
+        <button
+          class="w-full bg-[#3ea9ff] hover:bg-[#2196f3] transition-all duration-300 rounded-md py-3 text-black font-special text-lg flex justify-center items-center shadow-md"
+          onclick="downloadMovie()"
+        >
+          <i class="fas fa-download mr-2"></i> Download Movie
+        </button>
+        <button
+          class="w-full bg-[#4caf50] hover:bg-[#388e3c] transition-all duration-300 rounded-md py-3 text-white font-special text-lg flex justify-center items-center shadow-md"
+          onclick="addToWatchLater()"
+        >
+          <i class="fas fa-clock mr-2"></i> Add to Watch Later
+        </button>
+        <button
+          class="w-full bg-[#ff5722] hover:bg-[#e64a19] transition-all duration-300 rounded-md py-3 text-white font-special text-lg flex justify-center items-center shadow-md"
+          onclick="shareMovie()"
+        >
+          <i class="fas fa-share-alt mr-2"></i> Share Movie
+        </button>
+      </section>
+
+      <!-- Overview and Poster -->
+      <section class="px-4 flex space-x-4 mb-6 fade-in">
+        <img
+          src="https://storage.googleapis.com/a1aa/image/629e5e75-7c7c-4708-3408-7482e8230261.jpg"
+          class="w-[100px] h-[150px] object-cover rounded shadow-lg"
+          alt="Movie Poster"
+        />
+        <div class="flex-1 text-gray-300 text-sm">
+          <h3 class="font-semibold text-white mb-2">Overview</h3>
+          <p>
+            The story that comes after two lovers break up when they realize
+            that their career goals are pulling them in different directions.
+          </p>
+        </div>
+      </section>
+
+      <!-- Cast -->
+      <section class="px-4 mb-4 text-sm text-gray-300 fade-in">
+        <p class="font-semibold text-white mb-1">Cast</p>
+        <p>
+          <a class="text-[#2a8de0] hover:underline" href="#">Saif Ali Khan</a>,
+          <a class="text-[#2a8de0] hover:underline" href="#">Deepika Padukone</a>,
+          <a class="text-[#2a8de0] hover:underline" href="#">Rishi Kapoor</a>,
+          <a class="text-[#2a8de0] hover:underline" href="#">Giselle Monteiro</a>
+        </p>
+      </section>
+
+      <!-- Director -->
+      <section class="px-4 mb-4 text-sm text-gray-300 fade-in">
+        <p class="font-semibold text-white mb-1">Director</p>
+        <p>
+          <a class="text-[#2a8de0] hover:underline" href="#">Imtiaz Ali</a>
+        </p>
+      </section>
+
+      <!-- Music -->
+      <section class="px-4 mb-6 text-sm text-gray-300 fade-in">
+        <p class="font-semibold text-white mb-1">Music</p>
+        <p>
+          <a class="text-[#2a8de0] hover:underline" href="#">Pritam</a>
+        </p>
+      </section>
+
+      <!-- Comment Section -->
+      <section class="px-4 mb-6 fade-in">
+        <h3 class="font-semibold text-white mb-2">Comments</h3>
+        <textarea
+          id="comment-input"
+          class="w-full p-2 bg-gray-800 text-white rounded"
+          rows="4"
+          placeholder="Write your comment..."
+        ></textarea>
+        <button
+          class="mt-2 px-4 py-2 bg-[#3ea9ff] text-black rounded"
+          onclick="submitComment()"
+        >
+          Submit
+        </button>
+        <div id="comment-list" class="mt-4 space-y-2"></div>
+      </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Plyr Player Initialization
+      const player = new Plyr('#player', {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+        settings: ['quality', 'speed', 'loop'],
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      if (currentTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        themeToggle.innerHTML = theme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      });
+
+      // Star Rating
+      const stars = document.querySelectorAll('.star-rating .fa-star');
+      const confirmRatingBtn = document.getElementById('confirm-rating');
+      let selectedRating = 0;
+      stars.forEach((star) => {
+        star.addEventListener('click', () => {
+          selectedRating = star.getAttribute('data-rating');
+          stars.forEach((s, index) => {
+            if (index < selectedRating) {
+              s.classList.add('checked');
+            } else {
+              s.classList.remove('checked');
+            }
+          });
+          confirmRatingBtn.classList.remove('hidden');
+        });
+      });
+      function confirmRating() {
+        if (selectedRating > 0) {
+          localStorage.setItem('movieRating', selectedRating);
+          document.getElementById('rating-section').style.opacity = '0';
+          setTimeout(() => {
+            document.getElementById('rating-section').classList.add('hidden');
+          }, 300);
+          alert(`You rated this movie ${selectedRating} stars!`);
+        }
+      }
+
+      // Download Movie
+      function downloadMovie() {
+        const progressBar = document.getElementById('download-progress');
+        const videoUrl = 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4';
+        const link = document.createElement('a');
+        link.href = videoUrl;
+        link.download = 'Love_Aaj_Kal_Trailer.mp4';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 10;
+          progressBar.style.width = `${progress}%`;
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              progressBar.style.width = '0%';
+            }, 1000);
+          }
+        }, 200);
+      }
+
+      // Add to Watch Later
+      function addToWatchLater() {
+        const watchLater = JSON.parse(localStorage.getItem('watchLater') || '[]');
+        if (!watchLater.includes('Love Aaj Kal')) {
+          watchLater.push('Love Aaj Kal');
+          localStorage.setItem('watchLater', JSON.stringify(watchLater));
+          alert('Added to Watch Later!');
+        } else {
+          alert('Already in Watch Later!');
+        }
+      }
+
+      // Share Movie
+      function shareMovie() {
+        if (navigator.share) {
+          navigator
+            .share({
+              title: 'Love Aaj Kal',
+              text: 'Check out this amazing movie - Love Aaj Kal!',
+              url: window.location.href,
+            })
+            .then(() => console.log('Shared successfully'))
+            .catch((error) => console.log('Error sharing:', error));
+        } else {
+          const shareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20Love%20Aaj%20Kal!&url=${encodeURIComponent(window.location.href)}`;
+          window.open(shareUrl, '_blank');
+        }
+      }
+
+      // Comment System
+      function submitComment() {
+        const commentInput = document.getElementById('comment-input');
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+          const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+          comments.push({ text: commentText, date: new Date().toLocaleString() });
+          localStorage.setItem('comments', JSON.stringify(comments));
+          commentInput.value = '';
+          renderComments();
+        }
+      }
+      function renderComments() {
+        const commentList = document.getElementById('comment-list');
+        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+        commentList.innerHTML = '';
+        comments.forEach((comment) => {
+          const commentDiv = document.createElement('div');
+          commentDiv.className = 'bg-gray-800 p-2 rounded';
+          commentDiv.innerHTML = `<p class="text-sm">${comment.text}</p><p class="text-xs text-gray-500">${comment.date}</p>`;
+          commentList.appendChild(commentDiv);
+        });
+      }
+      renderComments();
+    </script>
+  </body>
+</html>
