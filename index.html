@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavanora Perfume's - The Art of Fragrance</title>
+    
+    <!-- Google Fonts: Cinzel Decorative (Headings), Montserrat (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary-color: #c5a47e; /* Sophisticated gold/bronze */
+            --dark-bg: #111111;
+            --text-color: #333;
+            --light-text: #f5f5f5;
+            --section-bg: #f8f8f8; /* Very light grey for sections */
+            --heading-font: 'Cinzel Decorative', cursive;
+            --body-font: 'Montserrat', sans-serif;
+        }
+
+        /* --- General Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--body-font);
+            background-color: #ffffff;
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Header Styles --- */
+        .main-header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 5%;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+        .main-header.scrolled {
+            background-color: var(--dark-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px 5%;
+        }
+        .logo {
+            height: 43px;
+            filter: brightness(0) invert(1);
+            transition: all 0.4s ease;
+        }
+        .search-icon {
+            font-size: 1.3rem;
+            color: var(--light-text);
+            cursor: pointer;
+        }
+        
+        /* --- Hero Section with SVG Wave Divider --- */
+        .hero-section {
+            height: 100vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            color: var(--light-text);
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1594035918253-2583b2865743?q=80&w=1770&auto=format&fit=crop') no-repeat center center/cover;
+            position: relative; /* Important for the SVG divider */
+        }
+        .hero-content h1 {
+            font-family: var(--heading-font);
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        
+        /* SVG Wave Divider Style */
+        .custom-shape-divider {
+            position: absolute;
+            bottom: -1px; /* To prevent tiny gaps */
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .custom-shape-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px; /* Adjust height of the wave */
+        }
+        .custom-shape-divider .shape-fill {
+            fill: var(--section-bg); /* Color must match the next section's background */
+        }
+
+        /* --- Section Title --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title h2 {
+            font-family: var(--heading-font);
+            font-size: 2.8rem;
+            color: var(--text-color);
+        }
+        
+        /* --- Products Section --- */
+        .products-section {
+            padding: 120px 0 100px;
+            background-color: var(--section-bg);
+        }
+        .products-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Product Slider */
+        .slider-container {
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+        .slider-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: grid;
+            place-items: center;
+            opacity: 0;
+        }
+        .product-card:hover .slider-nav {
+            opacity: 1;
+        }
+        .slider-nav:hover { background-color: #fff; }
+        .slider-nav.prev { left: 15px; }
+        .slider-nav.next { right: 15px; }
+
+        .product-info {
+            padding: 30px;
+            text-align: center;
+        }
+        .product-info h3 {
+            font-size: 1.8rem;
+            font-family: var(--heading-font);
+            margin-bottom: 15px;
+        }
+        .product-info p {
+            margin-bottom: 25px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .order-btn {
+            display: inline-block;
+            background-color: var(--dark-bg);
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .order-btn:hover {
+            background-color: #fff;
+            color: var(--dark-bg);
+            border: 2px solid var(--dark-bg);
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials-section {
+            padding: 100px 0;
+            background-color: #ffffff; /* White background to contrast with product section */
+        }
+        /* (Rest of the testimonial styles remain the same) */
+        .testimonial-slider-container { position: relative; max-width: 800px; margin: auto; overflow: hidden; }
+        .testimonial-slider { display: flex; transition: transform 0.5s ease-in-out; }
+        .testimonial-card { flex: 0 0 100%; padding: 40px; text-align: center; }
+        .customer-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 4px solid var(--primary-color); }
+        .testimonial-card .quote { font-size: 1.1rem; font-style: italic; margin-bottom: 20px; color: #555; }
+        .testimonial-card .rating { color: #f39c12; margin-bottom: 10px; }
+        .customer-name { font-weight: 600; font-size: 1.1rem; }
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 70px 0 20px;
+        }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-column h4 { font-family: var(--heading-font); font-size: 1.5rem; margin-bottom: 20px; color: #fff; }
+        .footer-column p, .footer-column li a { font-size: 0.9rem; color: #bbb; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li a:hover { color: var(--primary-color); }
+        .social-icons a { color: #fff; font-size: 1.3rem; margin-right: 15px; transition: color 0.3s; }
+        .social-icons a:hover { color: var(--primary-color); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #333; font-size: 0.85rem; color: #888; }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .section-title h2 { font-size: 2.2rem; }
+            .custom-shape-divider svg { height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header" id="mainHeader">
+        <a href="#">
+            <img src="heavanora.png" alt="Heavanora Logo" class="logo">
+        </a>
+        <i class="fas fa-search search-icon"></i>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>The Art of Fragrance</h1>
+                <p>Discover a world of exquisite scents, crafted to perfection. Your journey to elegance begins here.</p>
+            </div>
+            <!-- This is the SVG Wave Divider -->
+            <div class="custom-shape-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Collections</h2>
+                </div>
+                <div class="products-grid">
+                    <!-- Product Card 1 -->
+                    <div class="product-card">
+                        <div class="slider-container" id="product-slider-1">
+                            <div class="slider-wrapper">
+                                <img src="2.jpg" alt="heavanora.com">
+                                <img src="1.jpg" alt="heavanora.com">
+                                <img src="3.jpg" alt="heavanora.com">
+                            </div>
+                            <button class="slider-nav prev">&lt;</button>
+                            <button class="slider-nav next">&gt;</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>Havenora Perfumes — Set-1 Order (4×6ml + 3ml Free)</h3>
+                            <p>100% Concentrated imported perfume oil — 8–10 hours lasting guarantee
+ডেলিভারি: ঢাকার ভিতর ৭০৳, বাইরে ১২০৳। একই অর্ডারে যে কোনো ২টা সেট একসাথে নিলে ডেলিভারি ফ্রি ✅....</p>
+                            <a href="set1.html" class="order-btn">Order Now</a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card">
+                        <div class="slider-container" id="product-slider-2">
+                            <div class="slider-wrapper">
+                                <img src="10.jpg" alt="heavanora.com">
+                                <img src="11.jpg" alt="heavanora.com">
+                                <img src="12.jpg" alt="heavanora.com">
+                            </div>
+                            <button class="slider-nav prev">&lt;</button>
+                            <button class="slider-nav next">&gt;</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>Havenora Perfumes — Set-2 Order (3ml × 11 = 10+1 Free)</h3>
+                            <p>100% Concentrated imported perfume oil — 8–10 hours lasting guarantee
+ডেলিভারি: ঢাকার ভিতর ৭০৳, বাইরে ১২০৳। একই অর্ডারে যে কোনো ২টা সেটএকসাথে  নিলে ডেলিভারি ফ্রি ✅...</p>
+                            <a href="#" class="order-btn">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Customer Voices</h2>
+                </div>
+                <!-- Testimonial slider code remains the same as previous version -->
+                <div class="testimonial-slider-container">
+                    <div class="testimonial-slider" id="testimonialSlider">
+                        <div class="testimonial-card"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" alt="Customer" class="customer-photo"><p class="quote">"Absolutely in love with the Signature Set! It smells divine and lasts forever. Heavanora is my new favorite."</p><div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="customer-name">Anika Tabassum</p></div>
+                        <div class="testimonial-card"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" alt="Customer" class="customer-photo"><p class="quote">"The Royal Aura set is pure luxury. The packaging, the bottles, the scent... everything is top-notch. Worth every penny."</p><div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="customer-name">Salman Ahmed</p></div>
+                        <div class="testimonial-card"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop" alt="Customer" class="customer-photo"><p class="quote">"Fast delivery and amazing quality. I was looking for a unique fragrance and I found it here. Thank you, Heavanora!"</p><div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p class="customer-name">Riya Chowdhury</p></div>
+                    </div>
+                    <button class="slider-nav prev" id="testimonialPrev">&lt;</button>
+                    <button class="slider-nav next" id="testimonialNext">&gt;</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="main-footer">
+        <!-- Footer code remains the same as previous version -->
+        <div class="container"><div class="footer-container"><div class="footer-column"><h4>Heavanora</h4><p>Crafting memories through the art of perfumery. Experience luxury, elegance, and sophistication in every bottle.</p></div><div class="footer-column"><h4>Quick Links</h4><ul><li><a href="#">Shop</a></li><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li></ul></div><div class="footer-column"><h4>Contact</h4><ul><li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li><li><i class="fas fa-envelope"></i> contact@heavanora.com</li></ul></div><div class="footer-column"><h4>Follow Us</h4><div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div></div><div class="footer-bottom"><p>&copy; 2024 Heavanora Perfume's. All Rights Reserved.</p></div></div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reusable Slider Function with Auto-slide
+        function initializeSlider(sliderId) {
+            const sliderContainer = document.getElementById(sliderId);
+            if (!sliderContainer) return;
+
+            const sliderWrapper = sliderContainer.querySelector('.slider-wrapper');
+            const prevButton = sliderContainer.querySelector('.prev');
+            const nextButton = sliderContainer.querySelector('.next');
+            const slides = sliderWrapper.children;
+            let currentIndex = 0;
+            const slideCount = slides.length;
+            let autoSlideInterval;
+
+            function goToSlide(index) {
+                if (index < 0) index = slideCount - 1;
+                if (index >= slideCount) index = 0;
+                sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+                currentIndex = index;
+            }
+
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(() => {
+                    goToSlide(currentIndex + 1);
+                }, 4000); // Change image every 4 seconds
+            }
+
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+                resetAutoSlide();
+            });
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+                resetAutoSlide();
+            });
+            
+            startAutoSlide(); // Start auto-sliding initially
+        }
+
+        // Initialize Product Sliders
+        initializeSlider('product-slider-1');
+        initializeSlider('product-slider-2');
+
+        // Testimonial Slider (code remains the same)
+        const testimonialSlider = document.getElementById('testimonialSlider');
+        const testimonialPrev = document.getElementById('testimonialPrev');
+        const testimonialNext = document.getElementById('testimonialNext');
+        if (testimonialSlider) {
+            let testimonialIndex = 0;
+            const testimonialCount = testimonialSlider.children.length;
+
+            function showTestimonial(index) {
+                if (index < 0) index = testimonialCount - 1;
+                if (index >= testimonialCount) index = 0;
+                testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+                testimonialIndex = index;
+            }
+            
+            testimonialPrev.addEventListener('click', () => showTestimonial(testimonialIndex - 1));
+            testimonialNext.addEventListener('click', () => showTestimonial(testimonialIndex + 1));
+            
+            setInterval(() => showTestimonial(testimonialIndex + 1), 5000);
+        }
+    </script>
+</body>
+</html>
