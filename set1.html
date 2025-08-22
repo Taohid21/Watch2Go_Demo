@@ -3,245 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heavanora Perfumes - Set 1</title>
+    <title>হেভেনোরা পারফিউম - আপনার সেট তৈরি করুন</title>
     
-    <!-- Google Fonts: Lustria (Headings), Roboto (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lustria&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lustria&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     
     <style>
         :root {
-            --primary-color: #B99C6B; /* A muted, elegant gold */
-            --dark-bg: #1C1C1C;
-            --text-color: #333;
-            --light-text: #f5f5f5;
-            --section-bg: #f9f8f6;
-            --success-color: #2E7D32;
-            --heading-font: 'Lustria', serif;
-            --body-font: 'Roboto', sans-serif;
+            --primary-color: #B99C6B; --dark-bg: #1C1C1C; --text-color: #333;
+            --light-text: #f5f5f5; --section-bg: #f9f8f6; --success-color: #2E7D32;
+            --heading-font: 'Lustria', serif; --body-font: 'Hind Siliguri', sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--body-font);
-            background-color: #fff;
-            color: var(--text-color);
-            line-height: 1.7;
-            overflow-x: hidden;
-            /* Fix: নিছের বাটন বারের কারণে লেখা ঢেকে যাওয়া সমস্যার সমাধান */
-            padding-bottom: 120px; 
-        }
-
+        body { font-family: var(--body-font); background-color: #fff; color: var(--text-color); line-height: 1.8; overflow-x: hidden; padding-bottom: 120px; }
         h1, h2, h3, p.step-title { font-family: var(--heading-font); }
-        button, input, textarea, label { font-family: inherit; }
+        button, input, textarea, label, span, p { font-family: var(--body-font); }
 
-        /* --- Main Page Styles --- */
         .image-slider-section { position: relative; width: 100%; height: 65vh; overflow: hidden; }
         .slider-wrapper { display: flex; height: 100%; transition: transform 0.7s ease-in-out; }
         .slider-wrapper img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
-        
         .product-details { padding: 60px 5%; text-align: center; }
-        .product-details h1 { font-size: 3rem; margin-bottom: 20px; letter-spacing: 1px; }
-        .product-details p { max-width: 700px; margin: 0 auto; line-height: 1.8; color: #555; font-size: 1.05rem; }
-        
-        .action-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
-            display: flex; padding: 15px; gap: 15px; z-index: 998;
-        }
-        .action-btn { flex: 1; padding: 16px; border: none; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border-radius: 8px; }
+        .product-details h1 { font-size: 2.5rem; margin-bottom: 20px; }
+        .product-details p { max-width: 700px; margin: 0 auto 20px; color: #555; }
+        .offer-box { background: var(--section-bg); border-left: 4px solid var(--primary-color); padding: 15px 20px; max-width: 600px; margin: auto; text-align: left; border-radius: 4px; font-size: 0.95rem; }
+        .action-bar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 -5px 20px rgba(0,0,0,0.08); display: flex; padding: 15px; gap: 15px; z-index: 998; }
+        .action-btn { flex: 1; padding: 16px; border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border-radius: 8px; }
         .btn-support { background-color: #f0f0f0; border: 1px solid #ddd; }
-        .btn-support:hover { background-color: #e0e0e0; }
         .btn-start-order { background-color: var(--dark-bg); color: #fff; }
-        .btn-start-order:hover { background-color: #000; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        /* --- Full-Screen Order Flow --- */
-        .order-flow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ffffff; z-index: 1001; display: flex; flex-direction: column;
-            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
+        .order-flow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 1001; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
         .order-flow.active { transform: translateY(0); }
-        
         .flow-header { padding: 15px 20px; display: flex; align-items: center; border-bottom: 1px solid #eee; flex-shrink: 0; }
-        .close-flow { font-size: 1.8rem; cursor: pointer; color: #888; border: none; background: none; margin-right: 15px; line-height: 1; transition: color 0.3s; }
-        .close-flow:hover { color: #333; }
+        .close-flow { font-size: 1.8rem; cursor: pointer; color: #888; border: none; background: none; margin-right: 15px; }
         .flow-header h2 { font-size: 1.4rem; font-weight: 400; }
-        
         .progress-bar-container { width: 100%; background-color: #f0f0f0; }
         .progress-bar { height: 5px; width: 0%; background: linear-gradient(90deg, #d3b98d, var(--primary-color)); transition: width 0.4s ease; }
-        
         .flow-body { flex-grow: 1; overflow-y: auto; padding: 30px 25px; }
         .flow-footer { padding: 20px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; flex-shrink: 0; }
-        
         .order-step { display: none; }
         .order-step.active { display: block; animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .step-title { font-size: 1.8rem; margin-bottom: 30px; }
+        .step-title { font-size: 1.8rem; margin-bottom: 10px; }
+        .step-subtitle { font-size: 1.1rem; color: #777; margin-bottom: 30px; font-weight: 400; }
         
-        .fragrance-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .fragrance-item {
-            display: flex; align-items: center; background-color: var(--section-bg);
-            padding: 15px; border-radius: 8px; cursor: pointer;
-            border: 2px solid transparent; transition: all 0.2s; position: relative;
-        }
-        .fragrance-item:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .fragrance-item input { opacity: 0; position: absolute; }
-        .fragrance-item .checkmark {
-            width: 22px; height: 22px; border: 2px solid #ccc;
-            border-radius: 50%; margin-right: 15px; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .fragrance-item .checkmark::after { content: '✓'; color: #fff; font-size: 14px; opacity: 0; transform: scale(0.5); transition: all 0.2s; }
-        .fragrance-item.checked { background-color: #FDF4E3; border-color: var(--primary-color); }
-        .fragrance-item.checked .checkmark { background-color: var(--primary-color); border-color: var(--primary-color); }
-        .fragrance-item.checked .checkmark::after { opacity: 1; transform: scale(1); }
-        .fragrance-item.disabled { opacity: 0.6; cursor: not-allowed; background: #f1f1f1; }
-        .fragrance-item.disabled:hover { transform: none; box-shadow: none; }
-        .selection-counter { margin-top: 25px; font-weight: 500; color: #555; text-align: center; font-size: 1.1rem; }
-        
-        .quantity-list .item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #eee; }
-        .quantity-list .item:last-child { border-bottom: none; }
+        .quantity-list .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-radius: 8px; margin-bottom: 10px; background-color: var(--section-bg); transition: all 0.2s; }
+        .quantity-list .item.selected { background-color: #FDF4E3; border: 1px solid var(--primary-color); }
         .quantity-list .item-name { font-weight: 500; }
-        .quantity-selector { display: flex; align-items: center; gap: 15px; }
-        .quantity-selector button { width: 38px; height: 38px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 1.6rem; border-radius: 50%; display: grid; place-items: center; line-height: 0; transition: background-color 0.2s; }
-        .quantity-selector button:hover { background-color: #f5f5f5; }
-        .quantity-selector .qty-input { font-size: 1.2rem; font-weight: 500; width: 30px; text-align: center; border: none; background: transparent; }
+        .quantity-list .quantity-selector { display: flex; align-items: center; gap: 15px; }
+        .quantity-list button { width: 35px; height: 35px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 1.5rem; border-radius: 50%; display: grid; place-items: center; line-height: 0; transition: background-color 0.2s, opacity 0.2s; }
+        .quantity-list button:disabled { cursor: not-allowed; opacity: 0.4; }
+        .quantity-list .qty-input { font-size: 1.1rem; font-weight: 700; width: 25px; text-align: center; }
+        .selection-counter { position: sticky; bottom: -30px; background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); padding: 15px; margin: 20px -25px -30px -25px; text-align: center; font-weight: 500; font-size: 1.1rem; border-top: 1px solid #eee; z-index: 10; }
         
         .form-group { margin-bottom: 25px; }
-        label, .radio-group p { display: block; margin-bottom: 12px; font-weight: 500; }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper .icon { position: absolute; left: 18px; color: #aaa; }
+        .input-wrapper input, .input-wrapper textarea { padding-left: 50px !important; width: 100%; }
+
+        label, .radio-group p { display: block; margin-bottom: 12px; font-weight: 500; font-size: 1.1rem; }
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
         input[type="text"]:focus, input[type="tel"]:focus, textarea:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(185, 156, 107, 0.2); }
         .radio-group label { display: block; background-color: var(--section-bg); padding: 18px; border-radius: 8px; margin-bottom: 12px; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease; }
-        .radio-group input[type="radio"] { display: none; }
+        .radio-group input[type="radio"] { display: none; /* Hide the actual radio button */ }
         .radio-group input[type="radio"]:checked + label { border-color: var(--primary-color); background-color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-btn { padding: 15px 35px; border-radius: 8px; font-size: 1rem; border: none; cursor: pointer; transition: all 0.3s; }
-        .nav-btn:disabled { background-color: #ccc !important; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+        .nav-btn { padding: 15px 35px; border-radius: 8px; font-size: 1.1rem; border: none; cursor: pointer; transition: all 0.3s; font-weight: 600; }
+        .nav-btn:disabled { background-color: #ccc !important; cursor: not-allowed; }
 
-        /* --- Improved Order Summary --- */
-        .summary-wrapper { border: 1px solid #eee; border-radius: 8px; }
-        .summary-section { padding: 20px; border-bottom: 1px solid #eee; }
-        .summary-section:last-child { border-bottom: none; }
-        .summary-section h3 { font-family: var(--heading-font); margin-bottom: 15px; font-size: 1.3rem; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
-        .summary-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .summary-line span:first-child { color: #666; }
-        .summary-item-list li { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; }
-        .summary-total { font-size: 1.5rem; font-weight: 700; text-align: right; margin-top: 20px; display: flex; justify-content: space-between; padding: 20px; background: var(--section-bg); border-radius: 0 0 8px 8px; }
-
-        /* --- Improved Success Step --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1002; display: none; align-items: center; justify-content: center; }
+        .modal-content { background: #fff; width: 95%; max-width: 500px; height: 90%; max-height: 700px; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; }
+        .modal-body { flex-grow: 1; overflow-y: auto; padding: 20px; }
+        .modal-footer { padding: 15px; border-top: 1px solid #eee; display:flex; align-items:center; }
+        .modal-list .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-radius: 8px; margin-bottom: 10px; background-color: var(--section-bg); transition: all 0.2s; cursor: pointer; }
+        .modal-list .item:hover { transform: scale(1.02); }
+        .modal-list .item.selected { background-color: #FDF4E3; border: 1px solid var(--primary-color); }
+        
+        .summary-wrapper { border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.07); }
+        .summary-header { background: var(--dark-bg); color: var(--light-text); padding: 20px; text-align: center; }
+        .summary-header h3 { font-family: var(--heading-font); font-size: 1.5rem; letter-spacing: 1px;}
+        .summary-body { padding: 25px; }
+        .summary-section { margin-bottom: 25px; }
+        .summary-section:last-of-type { margin-bottom: 0; }
+        .summary-section h4 { font-family: var(--heading-font); border-bottom: 2px solid var(--primary-color); padding-bottom: 8px; margin-bottom: 15px; font-size: 1.2rem; }
+        .summary-item-list { list-style: none; padding: 0; }
+        .summary-item-list li { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px dashed #eee; font-size: 1rem; align-items: center; }
+        .summary-item-list li:last-child { border-bottom: none; }
+        .summary-item-list span { color: #555; margin-right: 15px; flex-shrink: 0;}
+        .summary-item-list strong { text-align: right; }
+        .summary-footer { background: var(--section-bg); padding: 20px; border-top: 1px solid #eee; }
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.05rem; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 15px; font-size: 1.6rem; font-weight: 700; color: var(--dark-bg); }
+        
         .success-container { text-align: center; padding: 50px 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .success-icon { width: 100px; height: 100px; background: #E8F5E9; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 30px; animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-        .success-icon i { color: var(--success-color); font-size: 3rem; }
-        .success-container h2 { color: var(--success-color); font-size: 2.5rem; }
-        .success-container p { font-size: 1.1rem; max-width: 400px; margin: 15px auto 30px; }
+        .success-icon { width: 120px; height: 120px; position: relative; margin-bottom: 30px; }
+        .success-icon .circle { width: 100%; height: 100%; background: #E8F5E9; border-radius: 50%; animation: popIn 0.5s 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) both; }
+        .success-icon .checkmark { font-size: 4rem; color: var(--success-color); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); animation: drawCheck 0.4s 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) both; }
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes drawCheck { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
     </style>
 </head>
 <body>
     <main>
         <section class="image-slider-section">
             <div class="slider-wrapper" id="mainSlider">
-                <img src="1.jpg" alt="Set 1 Image 1">
-                <img src="2.jpg" alt="Set 1 Image 2">
-                <img src="3.jpg" alt="Set 1 Image 3">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1887&auto=format&fit=crop" alt="Image 1">
+                <img src="https://images.unsplash.com/photo-1620942819818-620257b85854?q=80&w=1887&auto=format&fit=crop" alt="Image 2">
             </div>
         </section>
-
         <section class="product-details">
-            <h1>Havenora Perfumes — Set-1 Order (4×6ml + 3ml Free)</h1>
-            <p>100% Concentrated imported perfume oil — 8–10 hours lasting guarantee
-ডেলিভারি: ঢাকার ভিতর ৭০৳, বাইরে ১২০৳। একই অর্ডারে যে কোনো ২টা সেট একসাথে নিলে ডেলিভারি ফ্রি ✅
-Set-1: ৪×৬ml (Spray/Roll-on) + ১×৩ml Roll-on (ফ্রি) = ৫৫০৳
-আপগ্রেড অপশন: ফ্রি ৩ml-এর পরিবর্তে ৬ml নিলে +৫০৳ ⇒ ৬০০৳ (তখন ৩ml ফ্রি থাকবে না)
-Men/Women/Unisex — লিস্ট থেকে মোট ৫টা নাম বাছুন; এরপর টাইপ দিন (Spray 6ml / Roll-on 6ml)
-আমাদের নতুন অফার:
-🔹 ৩০ml Spray/Roll-on = ৫৫০৳
-    *একটা বেশি নিলে ডেলিভারি ফ্রি*
-🔹 ৫০ml Spray = ৮০০৳ (ডেলিভারি ফ্রি)</p>
+            <h1>হেভেনোরা পারফিউম - কাস্টম সেট</h1>
+            <p>আমাদের এক্সক্লুসিভ সেটের মাধ্যমে আপনার নিজস্ব সুগন্ধির অভিজ্ঞতা তৈরি করুন। উপভোগ করুন ১০০% খাঁটি আমদানিকৃত পারফিউম অয়েল, যা ৮-১০ ঘন্টা স্থায়ীত্বের গ্যারান্টি দেয়।</p>
+            <div class="offer-box">
+                <strong>সেট-১:</strong> ৪টি ৬মিলি (স্প্রে/রোল-অন) + ১টি ৩মিলি রোল-অন (ফ্রি) = <strong>৫৫০৳</strong><br>
+                <strong>সেট-২:</strong> ১১টি ৩মিলি রোল-অন (১০+১ ফ্রি) = <strong>৬৫০৳</strong><br>
+                <small><strong>বিশেষ অফার:</strong> দুটি সেট একসাথে অর্ডার করলে ডেলিভারি চার্জ সম্পূর্ণ ফ্রি! ✅</small>
+            </div>
         </section>
     </main>
     
     <div class="action-bar">
-        <button class="action-btn btn-support">Support</button>
-        <button class="action-btn btn-start-order" id="startOrderBtn">Start Order</button>
+        <button class="action-btn btn-support">সাপোর্ট</button>
+        <button class="action-btn btn-start-order" id="startOrderBtn">আপনার সেট তৈরি করুন</button>
     </div>
 
     <div class="order-flow" id="orderFlow">
         <div class="flow-header">
             <button class="close-flow" id="closeFlowBtn">&times;</button>
-            <h2 id="flowTitle">Complete Your Order</h2>
+            <h2 id="flowTitle">আপনার অর্ডার সম্পন্ন করুন</h2>
         </div>
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
+        <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
         <div class="flow-body" id="flowBody">
             <div class="order-step active" id="step-1">
-                <p class="step-title">Step 1: Choose 5 Fragrances</p>
-                <div class="fragrance-list" id="fragranceListContainer"></div>
-                <p class="selection-counter" id="selectionCounter">0/5 selected</p>
+                <p class="step-title">ধাপ ১: সেট-১ এর জন্য মোট ৫টি আইটেম বাছাই করুন</p>
+                <p class="step-subtitle">আপনি এক বা একাধিক পারফিউম মিলিয়ে মোট ৫টি আইটেম নিতে পারবেন।</p>
+                <div class="quantity-list" id="fragranceListContainerSet1"></div>
+                <div class="selection-counter" id="selectionCounterSet1">০/৫ টি বাছাই করা হয়েছে</div>
             </div>
             <div class="order-step" id="step-2">
-                <p class="step-title">Step 2: Set Quantities</p>
-                <div class="quantity-list" id="quantitySelectorContainer"></div>
+                 <p class="step-title">ধাপ ২: আপনার অর্ডার বাছাই করুন</p>
+                 <p class="step-subtitle">একাধিক সেট অর্ডার করে ফ্রি ডেলিভারি উপভোগ করুন!</p>
+                 <div class="form-group radio-group">
+                    <input type="radio" id="order_type_single" name="order_type" value="single" checked><label for="order_type_single"><strong>শুধু এই সেটটি অর্ডার করুন (১টি)</strong><br><small>ডেলিভারি চার্জ প্রযোজ্য হবে।</small></label>
+                    <input type="radio" id="order_type_duplicate" name="order_type" value="duplicate"><label for="order_type_duplicate"><strong>এই সেট-এর দুটি অর্ডার করুন</strong><br><small>ডেলিভারি চার্জ ফ্রি!</small></label>
+                    <input type="radio" id="order_type_add_set2" name="order_type" value="add_set2"><label for="order_type_add_set2"><strong>এর সাথে সেট-২ যুক্ত করুন</strong><br><small>ডেলিভারি চার্জ ফ্রি!</small></label>
+                 </div>
             </div>
             <div class="order-step" id="step-3">
-                <p class="step-title">Step 3: Upgrade Options</p>
+                <p class="step-title">ধাপ ৩: সেট-১ এর অপশন বাছাই করুন</p>
                 <div class="form-group radio-group">
-                    <input type="radio" id="basic_3ml" name="upgrade_option" value="basic" checked><label for="basic_3ml"><strong>Basic (3ml Free)</strong><br><small>Standard 3ml bottle for each fragrance.</small></label>
-                    <input type="radio" id="upgrade_6ml" name="upgrade_option" value="upgrade"><label for="upgrade_6ml"><strong>Upgrade to 6ml (+50৳ each)</strong><br><small>Upgrade all selections to 6ml bottles.</small></label>
+                    <p><strong>আপগ্রেড অপশন:</strong></p>
+                    <input type="radio" id="set1_basic" name="set1_upgrade" value="basic" checked><label for="set1_basic"><strong>বেসিক: ৪টি ৬মিলি + ১টি ৩মিলি (ফ্রি)</strong> (৫৫০৳)</label>
+                    <input type="radio" id="set1_upgrade" name="set1_upgrade" value="upgrade"><label for="set1_upgrade"><strong>আপগ্রেড: সবগুলো ৬মিলি (+৫০৳)</strong> (৬০০৳)</label>
                 </div>
-                <div id="typeSelection_6ml" style="display: none;">
-                     <div class="form-group radio-group">
-                        <p><strong>Type for 6ml Bottles:</strong></p>
-                        <input type="radio" id="all_spray" name="type_6ml" value="all_spray" checked><label for="all_spray">All as Spray</label>
-                        <input type="radio" id="all_rollon" name="type_6ml" value="all_rollon"><label for="all_rollon">All as Roll-on</label>
+                <div id="set1TypeSelection" class="form-group">
+                    <div id="type_upgrade_container" class="radio-group" style="display: none;">
+                        <p><strong>৬মিলি বোতলের ধরন:</strong></p>
+                        <input type="radio" id="all_spray" name="type_6ml" value="all_spray" checked><label for="all_spray">সবগুলো স্প্রে</label>
+                        <input type="radio" id="all_rollon" name="type_6ml" value="all_rollon"><label for="all_rollon">সবগুলো রোল-অন</label>
                     </div>
                 </div>
             </div>
             <div class="order-step" id="step-4">
-                 <p class="step-title">Step 4: Delivery Information</p>
-                 <div class="form-group"><label for="customerName">Full Name</label><input type="text" id="customerName" placeholder="আপনার পুরো নাম লিখুন" required></div>
-                 <div class="form-group"><label for="customerPhone">Mobile Number</label><input type="tel" id="customerPhone" placeholder="আপনার মোবাইল নম্বর" required></div>
-                 <div class="form-group"><label for="customerAddress">Full Address</label><textarea id="customerAddress" rows="3" placeholder="বাড়ি/রাস্তা, এলাকা, থানা, জেলা" required></textarea></div>
+                 <p class="step-title">ধাপ ৪: ডেলিভারির তথ্য দিন</p>
+                 <div class="form-group"><label for="customerName">সম্পূর্ণ নাম</label><div class="input-wrapper"><i class="fas fa-user icon"></i><input type="text" id="customerName" placeholder="আপনার পুরো নাম" required></div></div>
+                 <div class="form-group"><label for="customerPhone">মোবাইল নম্বর</label><div class="input-wrapper"><i class="fas fa-phone icon"></i><input type="tel" id="customerPhone" placeholder="আপনার মোবাইল নম্বর" required></div></div>
+                 <div class="form-group"><label for="customerAddress">সম্পূর্ণ ঠিকানা</label><div class="input-wrapper"><i class="fas fa-map-marker-alt icon"></i><textarea id="customerAddress" rows="3" placeholder="বাড়ি/রাস্তা, এলাকা, থানা, জেলা" required></textarea></div></div>
                  <div class="form-group radio-group">
-                     <input type="radio" id="loc_dhaka" name="location" value="dhaka" data-charge="70" checked><label for="loc_dhaka">Inside Dhaka (Charge: 70৳)</label>
-                     <input type="radio" id="loc_outside" name="location" value="outside" data-charge="120"><label for="loc_outside">Outside Dhaka (Charge: 120৳)</label>
+                     <p><strong>ডেলিভারি এলাকা:</strong></p>
+                     <input type="radio" id="loc_dhaka" name="location" value="dhaka" data-charge="70" checked><label for="loc_dhaka">ঢাকার ভেতরে (চার্জ: ৭০৳)</label>
+                     <input type="radio" id="loc_outside" name="location" value="outside" data-charge="120"><label for="loc_outside">ঢাকার বাইরে (চার্জ: ১২০৳)</label>
                  </div>
             </div>
             <div class="order-step" id="step-5">
-                <p class="step-title">Step 5: Confirm Order</p>
+                <p class="step-title">ধাপ ৫: অর্ডার নিশ্চিত করুন</p>
                 <div id="orderSummaryContainer"></div>
             </div>
             <div class="order-step" id="step-success">
                 <div class="success-container">
-                    <div class="success-icon"><i class="fas fa-check"></i></div>
-                    <h2>Order Placed!</h2>
-                    <p>Thank you. We will contact you shortly for confirmation.</p>
-                    <button class="action-btn btn-start-order" id="closeSuccessBtn" style="max-width: 200px;">Close</button>
+                    <div class="success-icon"><div class="circle"></div><div class="checkmark">✓</div></div>
+                    <h2>অর্ডার সম্পন্ন হয়েছে!</h2>
+                    <p>ধন্যবাদ। আপনার অর্ডারটি নিশ্চিত করার জন্য আমরা শীঘ্রই আপনার সাথে যোগাযোগ করবো।</p>
+                    <button class="action-btn btn-start-order" id="closeSuccessBtn" style="max-width: 200px; margin: 0 auto;">বন্ধ করুন</button>
                 </div>
             </div>
         </div>
         <div class="flow-footer" id="flowFooter">
-            <button class="nav-btn btn-support" id="backBtn">Back</button>
-            <button class="nav-btn btn-start-order" id="nextBtn">Next</button>
+            <button class="nav-btn btn-support" id="backBtn">ফিরে যান</button>
+            <button class="nav-btn btn-start-order" id="nextBtn">পরবর্তী</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="set2Modal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>সেট-২ এর জন্য ১১টি আইটেম বাছাই করুন</h3></div>
+            <div class="modal-body">
+                <div class="modal-list quantity-list" id="fragranceListContainerSet2"></div>
+            </div>
+            <div class="modal-footer">
+                <p class="selection-counter" id="selectionCounterSet2" style="text-align:left; flex-grow:1; margin:0;">০/১১ টি বাছাই করা হয়েছে</p>
+                <button class="nav-btn btn-start-order" id="confirmSet2Btn" disabled>নিশ্চিত করুন</button>
+            </div>
         </div>
     </div>
 
     <script type="module">
-        // --- Firebase Config (Module Version) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
         
-        // TODO: আপনার নিজের ফায়ারবেস কনফিগ এখানে পেস্ট করুন
         const firebaseConfig = {
           apiKey: "AIzaSyAb8YsPMOY53GxiycCL6G0MPZdgWe3nnyY",
           authDomain: "movie-92659.firebaseapp.com",
@@ -252,16 +224,19 @@ Men/Women/Unisex — লিস্ট থেকে মোট ৫টা নাম 
           appId: "1:1090734362509:web:86be5583f6e8fcfdfa77c4",
           measurementId: "G-XF1TEP0DSJ"
         };
+        // Firebase শুরু করার সঠিক পদ্ধতি
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // --- Set Specific Configuration ---
-        const config = { setName: 'Set 1', basePrice: 550, fragranceLimit: 5, upgradePrice: 50 };
-        const fragranceMasterList = ["Ocean blue","havoc silver","bleu de chanel","dunhill icon grey","dunhill desire","cr7","D&G men blue","rassasi hawas ice","212 men","aqua 212","Dior sauvage","Ferrari black","rassasi royal blue","armani stronger with you","srk special","nautica voyage","Versace eros","creed aventus","silver stone","aqua di gio","gucci bloom","gucci guilty","gucci rush","lady million","escada moon Sparkle","paris hilton","bombshell Versace","escada sorbetto rosso","Good girl","tommy girl","escada collection","mad about you","fantasy","spice bomb extreme","vanilla sex","vampire blood","Diptique tamdao","ck-one","ehsas al arabia","ysl y"];
-        
+        const config = {
+            set1: { name: 'সেট-১', limit: 5, basePrice: 550, upgradePrice: 50 },
+            set2: { name: 'সেট-২', limit: 11, price: 650 },
+            delivery: { dhaka: 70, outside: 120 }
+        };
+        const fragranceMasterList = ["Men - Afnan 9 PM", "Men - Ocean Blue", "Men - Havoc Silver", "Men - Bleu de Chanel", "Men - Dunhill Icon Grey", "Men - Dunhill Desire", "Men - CR7", "Men - D&G Blue Men", "Men - Rasasi Hawas Ice", "Men - 212 Men", "Men - Aqua 212", "Men - Dior Sauvage", "Men - Ferrari Black", "Men - Rasasi Royal Blue", "Men - Armani Stronger With You", "Men - SRK Special", "Men - Nautica Voyage", "Men - Versace Eros", "Men - Creed Aventus", "Men - Silver Stone", "Men - Aqua Di Gio", "Women - Gucci Bloom", "Women - Gucci Guilty", "Women - Gucci Rush", "Women - Lady Million", "Women - Escada Moon Sparkle", "Women - Paris Hilton", "Women - Bombshell Versace", "Women - Escada Sorbetto Rosso", "Women - Good Girl", "Women - Tommy Girl", "Women - Escada Collection", "Women - Mad About You", "Women - Fantasy (Britney Spears)", "Women - Spicebomb Extreme", "Women - Vanilla Sex", "Unisex - Vampire Blood", "Unisex - Baccarat Rouge 540", "Unisex - Diptyque Tam Dao", "Unisex - CK One", "Unisex - Musk Al Tahara Blue", "Unisex - Musk Al Tahara White", "Unisex - Musk Al Tahara Pink", "Unisex - Musk Al Tahara Green", "Unisex - Ehsas Al Arabia", "Unisex - YSL Y"];
         let currentStep = 1;
         const totalSteps = 5;
-        let orderData = { fragrances: [], quantities: {}, upgrade: 'basic', type_6ml: 'all_spray', customerInfo: {}, totalCost: 0 };
+        let orderData = {};
 
         const ui = {
             orderFlow: document.getElementById('orderFlow'),
@@ -270,166 +245,274 @@ Men/Women/Unisex — লিস্ট থেকে মোট ৫টা নাম 
             backBtn: document.getElementById('backBtn'),
             nextBtn: document.getElementById('nextBtn'),
             progressBar: document.getElementById('progressBar'),
-            closeSuccessBtn: document.getElementById('closeSuccessBtn'),
             flowFooter: document.getElementById('flowFooter'),
-            step4Inputs: [document.getElementById('customerName'), document.getElementById('customerPhone'), document.getElementById('customerAddress')]
+            set2Modal: document.getElementById('set2Modal'),
+            confirmSet2Btn: document.getElementById('confirmSet2Btn'),
+            step4Inputs: [document.getElementById('customerName'), document.getElementById('customerPhone'), document.getElementById('customerAddress')],
         };
+        
+        function resetOrderData() {
+            orderData = {
+                set1: { quantities: {}, upgrade: 'basic', details: 'বেসিক (৪টি ৬মিলি + ১টি ৩মিলি)' },
+                orderType: 'single',
+                set2: { quantities: {} },
+                customerInfo: {},
+                totalCost: 0
+            };
+        }
 
-        ui.startOrderBtn.addEventListener('click', () => ui.orderFlow.classList.add('active'));
-        [ui.closeFlowBtn, ui.closeSuccessBtn].forEach(btn => btn.addEventListener('click', () => ui.orderFlow.classList.remove('active')));
+        ui.startOrderBtn.addEventListener('click', () => { resetOrderData(); initQuantitySelector('fragranceListContainerSet1', orderData.set1, config.set1.limit, updateSet1Counter); currentStep = 1; updateFlowView(); ui.orderFlow.classList.add('active'); });
+        ui.closeFlowBtn.addEventListener('click', () => ui.orderFlow.classList.remove('active'));
         ui.backBtn.addEventListener('click', handleBack);
         ui.nextBtn.addEventListener('click', handleNext);
+        ui.confirmSet2Btn.addEventListener('click', handleConfirmSet2);
+        ui.orderFlow.querySelector('#closeSuccessBtn').addEventListener('click', () => {
+            ui.orderFlow.classList.remove('active');
+            // Reset to step 1 for the next order
+            setTimeout(() => {
+                currentStep = 1;
+                resetOrderData();
+                updateFlowView();
+                ui.flowFooter.style.display = 'flex';
+            }, 500);
+        });
         
-        // Fix: Step 4 এর ইনপুট ফিল্ডে টাইপ করার সাথে সাথে বাটন এনাবল করার জন্য।
-        ui.step4Inputs.forEach(input => input.addEventListener('input', () => {
-            if (currentStep === 4) validateStep(4);
+        ui.step4Inputs.forEach(input => input.addEventListener('input', () => validateStep(4)));
+        document.querySelectorAll('input[name="set1_upgrade"]').forEach(r => r.addEventListener('change', e => {
+            const isUpgrade = e.target.value === 'upgrade';
+            document.getElementById('type_upgrade_container').style.display = isUpgrade ? 'block' : 'none';
         }));
 
-        function handleBack() { if (currentStep > 1) { currentStep--; updateFlowView(); } }
+        function handleBack() { if (currentStep > 1 && currentStep <= totalSteps) { currentStep--; updateFlowView(); } }
+        
         function handleNext() {
             if (!validateStep(currentStep)) return;
             saveStepData(currentStep);
+            
+            if (currentStep === 2 && orderData.orderType === 'add_set2') {
+                initQuantitySelector('fragranceListContainerSet2', orderData.set2, config.set2.limit, updateSet2Counter);
+                ui.set2Modal.style.display = 'flex';
+                return;
+            }
+
             if (currentStep < totalSteps) { currentStep++; updateFlowView(); } 
             else if (currentStep === totalSteps) { placeOrder(); }
+        }
+        
+        function handleConfirmSet2() {
+            if (Object.values(orderData.set2.quantities).reduce((s, q) => s + q, 0) === config.set2.limit) {
+                ui.set2Modal.style.display = 'none';
+                if (currentStep === 2) { currentStep++; } 
+                updateFlowView();
+            }
         }
 
         function updateFlowView() {
             document.querySelectorAll('.order-step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`step-${currentStep}`).classList.add('active');
+            const activeStep = document.getElementById(`step-${currentStep}`);
+            if(activeStep) activeStep.classList.add('active');
+
             ui.progressBar.style.width = `${((currentStep - 1) / totalSteps) * 100}%`;
-            ui.backBtn.style.visibility = currentStep > 1 ? 'visible' : 'hidden';
-            ui.nextBtn.textContent = currentStep === totalSteps ? 'Place Order' : 'Next';
+            ui.backBtn.style.visibility = (currentStep > 1 && currentStep <= totalSteps) ? 'visible' : 'hidden';
             
-            if (currentStep === 2) generateQuantitySelectors();
-            if (currentStep === 5) generateOrderSummary();
+            ui.nextBtn.textContent = (currentStep === totalSteps) ? 'অর্ডার প্লেস করুন' : 'পরবর্তী';
+            if (currentStep === 2 && document.querySelector('input[name="order_type"]:checked').value === 'add_set2') {
+                ui.nextBtn.textContent = 'সেট-২ যুক্ত করুন';
+            }
+            if (currentStep === totalSteps) generateOrderSummary();
 
             validateStep(currentStep);
         }
+
+        function initQuantitySelector(containerId, dataObject, limit, onUpdate) {
+            const container = document.getElementById(containerId);
+            // Prevent re-initialization
+            if (container.childElementCount > 0 && containerId === 'fragranceListContainerSet2') return;
+            if (container.childElementCount > 0 && containerId === 'fragranceListContainerSet1' && Object.keys(dataObject.quantities).length > 0) return;
+
+            container.innerHTML = fragranceMasterList.map(name => `<div class="item" data-name="${name}"><span class="item-name">${name}</span><div class="quantity-selector"><button data-change="-1">-</button><span class="qty-input">0</span><button data-change="1">+</button></div></div>`).join('');
+            
+            container.querySelectorAll('.item').forEach(itemDiv => {
+                const name = itemDiv.dataset.name;
+                const qtyInput = itemDiv.querySelector('.qty-input');
+                const plusBtn = itemDiv.querySelector('button[data-change="1"]');
+                const minusBtn = itemDiv.querySelector('button[data-change="-1"]');
+
+                const updateItemView = (qty) => {
+                    qtyInput.textContent = qty;
+                    itemDiv.classList.toggle('selected', qty > 0);
+                    minusBtn.disabled = qty === 0;
+                };
+
+                const changeQuantity = (change) => {
+                    let currentQty = dataObject.quantities[name] || 0;
+                    let totalQty = Object.values(dataObject.quantities).reduce((s, q) => s + q, 0);
+                    
+                    if (change === 1 && totalQty >= limit) return;
+                    
+                    let newQty = Math.max(0, currentQty + change);
+                    
+                    if (newQty > 0) {
+                        dataObject.quantities[name] = newQty;
+                    } else {
+                        delete dataObject.quantities[name];
+                    }
+                    onUpdate(); // Global update for all items
+                };
+
+                // Click on the whole item adds one
+                itemDiv.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') {
+                        changeQuantity(1);
+                    }
+                });
+
+                // Button clicks
+                plusBtn.addEventListener('click', () => changeQuantity(1));
+                minusBtn.addEventListener('click', () => changeQuantity(-1));
+
+                updateItemView(dataObject.quantities[name] || 0);
+            });
+            onUpdate();
+        }
         
+        function updateAllItems(containerId, dataObject, limit, counterElementId) {
+            const container = document.getElementById(containerId);
+            const counter = document.getElementById(counterElementId);
+            const total = Object.values(dataObject.quantities).reduce((s, q) => s + q, 0);
+
+            container.querySelectorAll('.item').forEach(item => {
+                const name = item.dataset.name;
+                const qty = dataObject.quantities[name] || 0;
+                item.querySelector('.qty-input').textContent = qty;
+                item.classList.toggle('selected', qty > 0);
+                item.querySelector('button[data-change="-1"]').disabled = qty === 0;
+                item.querySelector('button[data-change="1"]').disabled = (total >= limit);
+            });
+            
+            counter.textContent = `${total}/${limit} টি বাছাই করা হয়েছে`;
+
+            if (containerId === 'fragranceListContainerSet1') validateStep(1);
+            if (containerId === 'fragranceListContainerSet2') ui.confirmSet2Btn.disabled = total !== limit;
+        }
+
+        const updateSet1Counter = () => updateAllItems('fragranceListContainerSet1', orderData.set1, config.set1.limit, 'selectionCounterSet1');
+        const updateSet2Counter = () => updateAllItems('fragranceListContainerSet2', orderData.set2, config.set2.limit, 'selectionCounterSet2');
+
+
         function validateStep(step) {
             let isValid = false;
-            if (step === 1) isValid = orderData.fragrances.length === config.fragranceLimit;
+            if (step === 1) isValid = Object.values(orderData.set1.quantities).reduce((s, q) => s + q, 0) === config.set1.limit;
+            else if (step === 2 || step === 3) isValid = true;
             else if (step === 4) isValid = ui.step4Inputs.every(input => input.value.trim() !== '');
-            else isValid = true;
+            else if (step === 5) isValid = true;
             ui.nextBtn.disabled = !isValid;
             return isValid;
         }
 
         function saveStepData(step) {
-            if (step === 3) {
-                orderData.upgrade = document.querySelector('input[name="upgrade_option"]:checked').value;
-                if (orderData.upgrade === 'upgrade') orderData.type_6ml = document.querySelector('input[name="type_6ml"]:checked').value;
+            if (step === 2) {
+                orderData.orderType = document.querySelector('input[name="order_type"]:checked').value;
+            } else if (step === 3) {
+                const upgradeValue = document.querySelector('input[name="set1_upgrade"]:checked').value;
+                orderData.set1.upgrade = upgradeValue;
+                if (upgradeValue === 'upgrade') {
+                    const type6ml = document.querySelector('input[name="type_6ml"]:checked').value;
+                    orderData.set1.details = `আপগ্রেড (সবগুলো ৬মিলি), ধরন: ${type6ml.replace('all_','').replace('on','-অন')}`;
+                } else {
+                    orderData.set1.details = 'বেসিক (৪টি ৬মিলি + ১টি ৩মিলি)';
+                }
             } else if (step === 4) {
-                orderData.customerInfo = { name: document.getElementById('customerName').value, phone: document.getElementById('customerPhone').value, address: document.getElementById('customerAddress').value, location: document.querySelector('input[name="location"]:checked').value };
+                orderData.customerInfo = { 
+                    name: document.getElementById('customerName').value, 
+                    phone: document.getElementById('customerPhone').value, 
+                    address: document.getElementById('customerAddress').value, 
+                    location: document.querySelector('input[name="location"]:checked').value 
+                };
             }
         }
         
-        function initFragranceList() {
-            const container = document.getElementById('fragranceListContainer');
-            container.innerHTML = fragranceMasterList.map(name => `<label class="fragrance-item"><input type="checkbox"><span class="checkmark"></span><span>${name}</span></label>`).join('');
-            const allItems = container.querySelectorAll('.fragrance-item');
-            allItems.forEach((item, index) => {
-                item.addEventListener('click', e => {
-                    e.preventDefault();
-                    const name = fragranceMasterList[index];
-                    if (item.classList.contains('disabled') && !item.classList.contains('checked')) return;
-
-                    const isChecked = orderData.fragrances.includes(name);
-                    if (isChecked) {
-                        orderData.fragrances = orderData.fragrances.filter(f => f !== name);
-                        item.classList.remove('checked');
-                    } else if (orderData.fragrances.length < config.fragranceLimit) {
-                        orderData.fragrances.push(name);
-                        item.classList.add('checked');
-                    }
-
-                    allItems.forEach(el => el.classList.toggle('disabled', orderData.fragrances.length >= config.fragranceLimit && !el.classList.contains('checked')));
-                    document.getElementById('selectionCounter').textContent = `${orderData.fragrances.length}/${config.fragranceLimit} selected`;
-                    validateStep(1);
-                });
-            });
-        }
-
-        function generateQuantitySelectors() {
-            const container = document.getElementById('quantitySelectorContainer');
-            container.innerHTML = orderData.fragrances.map(name => {
-                orderData.quantities[name] = orderData.quantities[name] || 1;
-                return `<div class="item"><span class="item-name">${name}</span><div class="quantity-selector"><button data-name="${name}" data-change="-1">-</button><span class="qty-input">${orderData.quantities[name]}</span><button data-name="${name}" data-change="1">+</button></div></div>`;
-            }).join('');
-
-            container.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const name = btn.dataset.name;
-                    const change = parseInt(btn.dataset.change);
-                    if (orderData.quantities[name] + change >= 1) {
-                        orderData.quantities[name] += change;
-                        btn.parentElement.querySelector('.qty-input').textContent = orderData.quantities[name];
-                    }
-                });
-            });
-        }
-        
-        document.querySelectorAll('input[name="upgrade_option"]').forEach(radio => radio.addEventListener('change', e => document.getElementById('typeSelection_6ml').style.display = e.target.value === 'upgrade' ? 'block' : 'none'));
-
-        // Fix: অর্ডার সামারি আরও তথ্যবহুল এবং সুন্দর করা হয়েছে
         function generateOrderSummary() {
-            const totalItems = Object.values(orderData.quantities).reduce((sum, qty) => sum + qty, 0);
-            const upgradeCost = orderData.upgrade === 'upgrade' ? totalItems * config.upgradePrice : 0;
-            const deliveryCharge = parseInt(document.querySelector('input[name="location"]:checked').dataset.charge);
-            orderData.totalCost = config.basePrice + upgradeCost + deliveryCharge;
+            let set1Price = config.set1.basePrice + (orderData.set1.upgrade === 'upgrade' ? config.set1.upgradePrice : 0);
+            let totalCost = 0;
+            let set1Count = orderData.orderType === 'duplicate' ? 2 : 1;
+            totalCost += set1Price * set1Count;
             
-            const itemsHTML = Object.entries(orderData.quantities).map(([name, qty]) => {
-                const size = orderData.upgrade === 'upgrade' ? '6ml' : '3ml';
-                const type = orderData.upgrade === 'upgrade' ? `(${orderData.type_6ml.replace('_', ' ').replace('all as ', '')})` : '';
-                return `<li><span>${name}</span> <strong>${qty} x ${size} ${type}</strong></li>`;
-            }).join('');
+            let summaryHTML = `<div class="summary-wrapper">
+                <div class="summary-header"><h3>অর্ডার সামারি</h3></div>
+                <div class="summary-body">
+                    <div class="summary-section">
+                        <h4>${config.set1.name} (x${set1Count})</h4>
+                        <ul class="summary-item-list">`;
+            for(const [name, qty] of Object.entries(orderData.set1.quantities)) { summaryHTML += `<li><span>${name}</span> <strong>x${qty}</strong></li>`; }
+            summaryHTML += `<li><span>অপশন</span> <strong>${orderData.set1.details}</strong></li>`;
+            summaryHTML += `</ul></div>`;
 
-            document.getElementById('orderSummaryContainer').innerHTML = `
-                <div class="summary-wrapper">
-                    <div class="summary-section">
-                        <h3>Customer Details</h3>
-                        <div class="summary-line"><span>Name:</span> <strong>${orderData.customerInfo.name}</strong></div>
-                        <div class="summary-line"><span>Phone:</span> <strong>${orderData.customerInfo.phone}</strong></div>
-                        <div class="summary-line"><span>Address:</span> <strong>${orderData.customerInfo.address}</strong></div>
-                    </div>
-                    <div class="summary-section">
-                        <h3>Order Items</h3>
-                        <ul class="summary-item-list" style="list-style: none; padding: 0;">${itemsHTML}</ul>
-                    </div>
-                     <div class="summary-section">
-                        <h3>Cost Breakdown</h3>
-                        <div class="summary-line"><span>Set Price:</span> <span>${config.basePrice}৳</span></div>
-                        ${upgradeCost > 0 ? `<div class="summary-line"><span>Upgrade to 6ml:</span> <span>${upgradeCost}৳</span></div>` : ''}
-                        <div class="summary-line"><span>Delivery Charge:</span> <span>${deliveryCharge}৳</span></div>
-                    </div>
-                    <div class="summary-total">
-                        <span>Total Payable:</span>
-                        <span>${orderData.totalCost}৳</span>
-                    </div>
-                </div>`;
+            if (orderData.orderType === 'add_set2' && Object.keys(orderData.set2.quantities).length > 0) {
+                totalCost += config.set2.price;
+                summaryHTML += `<div class="summary-section">
+                                <h4>${config.set2.name}</h4>
+                                <ul class="summary-item-list">`;
+                for(const [name, qty] of Object.entries(orderData.set2.quantities)) { summaryHTML += `<li><span>${name}</span> <strong>x${qty}</strong></li>`; }
+                summaryHTML += `</ul></div>`;
+            }
+
+            const isFreeDelivery = orderData.orderType !== 'single';
+            const deliveryCharge = isFreeDelivery ? 0 : config.delivery[orderData.customerInfo.location];
+            totalCost += deliveryCharge;
+            orderData.totalCost = totalCost;
+            
+            summaryHTML += `</div>
+                <div class="summary-footer">
+                    <div class="summary-line"><span>পণ্যের মোট মূল্য:</span> <strong>${totalCost - deliveryCharge}৳</strong></div>
+                    <div class="summary-line"><span>ডেলিভারি চার্জ:</span> <strong>${isFreeDelivery ? 'ফ্রি' : deliveryCharge + '৳'}</strong></div>
+                    <div class="summary-total"><span>সর্বমোট প্রদেয়:</span><span>${totalCost}৳</span></div>
+                </div>
+            </div>`;
+
+            document.getElementById('orderSummaryContainer').innerHTML = summaryHTML;
         }
-
 
         async function placeOrder() {
-            ui.nextBtn.disabled = true; ui.nextBtn.textContent = 'Placing...';
-            const orderPayload = { setName: config.setName, ...orderData, timestamp: new Date().toISOString(), status: 'Pending' };
+            ui.nextBtn.disabled = true; ui.nextBtn.textContent = 'অর্ডার হচ্ছে...';
+            
+            // Recalculate and finalize data just before sending
+            saveStepData(4);
+            generateOrderSummary();
+
+            const orderPayload = { 
+                set1: orderData.set1,
+                orderType: orderData.orderType,
+                set2: orderData.orderType === 'add_set2' ? orderData.set2 : null,
+                customerInfo: orderData.customerInfo,
+                totalCost: orderData.totalCost,
+                timestamp: new Date().toISOString(), 
+                status: 'Pending' 
+            };
+            // Clean up empty set2 object if not selected
+            if (orderPayload.set2 && Object.keys(orderPayload.set2.quantities).length === 0) {
+                delete orderPayload.set2;
+            }
+
             try {
-                await set(push(ref(database, 'orders')), orderPayload);
-                currentStep = 'success';
+                await push(ref(database, 'orders'), orderPayload);
+                currentStep = 'success'; // Use string to prevent conflict with step numbers
                 document.querySelectorAll('.order-step').forEach(step => step.classList.remove('active'));
                 document.getElementById(`step-success`).classList.add('active');
                 ui.flowFooter.style.display = 'none';
                 ui.progressBar.style.width = '100%';
-            } catch (error) {
-                console.error("Error:", error); alert('Failed to place order.');
-                ui.nextBtn.disabled = false; ui.nextBtn.textContent = 'Place Order';
+            } catch (error) { 
+                console.error("Firebase Error:", error); 
+                alert('অর্ডার করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।'); 
+                ui.nextBtn.disabled = false; 
+                ui.nextBtn.textContent = 'অর্ডার প্লেস করুন'; 
             }
         }
         
-        let mainSliderIndex = 0;
-        setInterval(() => { mainSliderIndex = (mainSliderIndex + 1) % 3; document.getElementById('mainSlider').style.transform = `translateX(-${mainSliderIndex * 100}%)`; }, 4000);
+        let sliderIndex = 0; setInterval(() => { sliderIndex = (sliderIndex + 1) % 2; document.getElementById('mainSlider').style.transform = `translateX(-${sliderIndex * 100}%)`; }, 4000);
         
-        initFragranceList();
+        resetOrderData();
+        initQuantitySelector('fragranceListContainerSet1', orderData.set1, config.set1.limit, updateSet1Counter);
         updateFlowView();
     </script>
 </body>
